@@ -29,32 +29,36 @@ describe('News controller', function() {
 
    
     describe('fetching news', function() {
-        it('Should populate news from service', function() {
-            deferred = $q.defer();
+        var deferred;
 
+        beforeEach(function() {
+            deferred = $q.defer();
             spyOn(newsService, 'getNews')
-            .and.returnValue(deferred.promise)
+            .and.returnValue(deferred.promise);
+        });
+
+        function sendDataFromService(){
+            deferred.resolve([{name: 'sky news'}]);
+        };
+
+        it('Should populate news from service', function() {
 
             scope.getNews();
 
-            deferred.resolve([{name: 'sky news'}]);
+            sendDataFromService();
 
             $rootScope.$digest();
 
             expect(scope.news[0].name).toEqual('sky news');
         });
         it("Should should set loading to false when data comes back", function() {
-            deferred = $q.defer();
-
-            spyOn(newsService, 'getNews')
-            .and.returnValue(deferred.promise);
 
             scope.getNews();
 
             
             scope.loading = true;
 
-            deferred.resolve([{name: 'bbc news'}]);
+            sendDataFromService();
 
             $rootScope.$digest();
 

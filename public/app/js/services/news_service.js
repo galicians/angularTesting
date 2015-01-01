@@ -1,8 +1,10 @@
 
 
-var newsApp = angular.module('newsApp',['ngResource','newsAppServices']);
+var newsApp = angular.module('newsApp',['ngResource','newsAppServices','newsAppControllers']);
 
-var newsAppServices = angular.module('newsAppServices',[])
+var newsAppServices = angular.module('newsAppServices',[]);
+
+var newsAppControllers = angular.module('newsAppControllers',[]);
 
 newsAppServices.factory('newsService', ['$resource','$q', function($resource,$q) {
     return {

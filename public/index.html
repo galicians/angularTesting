@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head ng-app="newsAggregator" ng-class="controller">
+    <meta charset="utf-8">
+    <title>do nation</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+
+    <!-- css -->
+    <link rel="stylesheet" href="app/styles/bootstrap.yeti.min.css">
+
+  </head>
+  <body>
+
+    {{ test }}
+    <!-- app content here -->
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li><a ui-sref="main">All News</a></li>
+          <li><a ui-sref="chat">BBC</a></li>
+          <li><a ui-sref="about">Sky News</a></li>
+          <li><a ui-sref="register">Hacker News</a></li>
+        </ul>
+        <h4 class="text-muted">News Aggregator</h4>
+      </div>
+
+      <div ui-view></div>
+
+    </div>
+
+
+      <!-- libraries -->
+     
+      <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+        <!-- scripts.js -->
+      <script src="app/js/app.js"></script>
+      <script src="app/js/app.config.js"></script>
+      <script src="app/js/testCtrl.js"></script>
+
+</body>
+</html>

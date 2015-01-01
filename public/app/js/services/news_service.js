@@ -6,7 +6,7 @@ var newsAppServices = angular.module('newsAppServices',[])
 
 newsAppServices.factory('newsService', ['$resource','$q', function($resource,$q) {
     return {
-        getnews: function(){
+        getNews: function(){
             var deferred = $q.defer();
             $resource('http://localhost:3000/allnews').query()
             .$promise

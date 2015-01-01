@@ -3,6 +3,8 @@ describe('News Service', function() {
     var $httpBackend;
     var service;
     var newsUrl = 'http://localhost:3000/allnews';
+    var data;
+    var err;
 
     beforeEach(module('newsApp'));
     beforeEach(module('newsAppServices'));
@@ -10,8 +12,8 @@ describe('News Service', function() {
     beforeEach(inject(function(_$httpBackend_, $injector) {
 
         createNewsService = function() {
-            return $injector.get('newsService')
-        }
+            return $injector.get('newsService');
+        };
 
         $httpBackend = _$httpBackend_;
         service = createNewsService();
@@ -25,29 +27,19 @@ describe('News Service', function() {
         });
         it("Should send an error when API fails", function() {
             $httpBackend.whenGET(newsUrl).respond(500)
-
-            var err;
-
             service.getnews().catch(function(e) {
                 err = e;
-            })
-
+            });
             $httpBackend.flush();
-
             expect(err).toBeDefined();
         });
         it("should send data when API is successful", function() {
             $httpBackend.whenGET(newsUrl).respond(200, [{name: 'sky news'}]);
-
-            var data;
-
             service.getnews().then(function(d) {
                 data = d;
             });
-
             $httpBackend.flush();
-
-            expect(data[0].name).toEqual('sky news')
+            expect(data[0].name).toEqual('sky news');
         });
     });
 });

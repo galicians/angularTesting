@@ -8,6 +8,9 @@ newsAppControllers.controller('newsController', ['newsService','$scope', functio
         newsService.getNews().then(function(news){
             $scope.news = news;
             $scope.loading = false;
+        }).catch(function(error){
+            console.log("Logs: error in newsController", error);
+            $scope.loading = false;
         })
     }
 

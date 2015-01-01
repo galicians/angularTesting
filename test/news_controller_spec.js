@@ -55,7 +55,6 @@ describe('News controller', function() {
 
             scope.getNews();
 
-            
             scope.loading = true;
 
             sendDataFromService();
@@ -63,6 +62,16 @@ describe('News controller', function() {
             $rootScope.$digest();
 
             expect(scope.loading).toBeFalsy();
+        });
+        it("Should set loading to false when serice fails", function() {
+            scope.getNews();
+            scope.loading = true;
+
+
+            deferred.reject();
+            $rootScope.$digest();
+
+            expect(scope.loading).toBeFalsy()
         })
     });
 });

@@ -28,7 +28,6 @@ describe('News controller', function() {
     }));
 
    
-
     describe('fetching news', function() {
         it('Should populate news from service', function() {
             deferred = $q.defer();
@@ -44,5 +43,22 @@ describe('News controller', function() {
 
             expect(scope.news[0].name).toEqual('sky news');
         });
+        it("Should should set loading to false when data comes back", function() {
+            deferred = $q.defer();
+
+            spyOn(newsService, 'getNews')
+            .and.returnValue(deferred.promise);
+
+            scope.getNews();
+
+            
+            scope.loading = true;
+
+            deferred.resolve([{name: 'bbc news'}]);
+
+            $rootScope.$digest();
+
+            expect(scope.loading).toBeFalsy();
+        })
     });
 });

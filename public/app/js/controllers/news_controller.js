@@ -7,6 +7,7 @@ newsAppControllers.controller('newsController', ['newsService','$scope', functio
     $scope.getNews = function() {
         newsService.getNews().then(function(news){
             $scope.news = news;
+            $scope.loading = false;
         })
     }
 

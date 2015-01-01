@@ -37,9 +37,17 @@ describe('News Service', function() {
             expect(err).toBeDefined();
         });
         it("should send data when API is successful", function() {
-            $httpBackend.whenGET(newsUrl).respond(200, [{name: 'test'}]);
+            $httpBackend.whenGET(newsUrl).respond(200, [{name: 'sky news'}]);
 
             var data;
+
+            service.getnews().then(function(d) {
+                data = d;
+            });
+
+            $httpBackend.flush();
+
+            expect(data[0].name).toEqual('sky news')
         });
     });
 });

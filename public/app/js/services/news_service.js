@@ -9,9 +9,13 @@ newsAppServices.factory('newsService', ['$resource','$q', function($resource,$q)
         getnews: function(){
             var deferred = $q.defer();
             $resource('http://localhost:3000/allnews').query()
-            .$promise.catch(function(error){
+            .$promise
+            .then(function(data) {
+                deferred.resolve(data);
+            })
+            .catch(function(error) {
                 deferred.reject(error);
-            });
+            })
               
             return deferred.promise;
         }

@@ -21,25 +21,30 @@ describe('News controller', function() {
     beforeEach(inject(function(_$rootScope_, $controller, _$q_){
         $rootScope = _$rootScope_;
         scope = $rootScope.$new();
+        $q = _$q_
+        deferred = $q.defer();
+
+        spyOn(newsService, 'getNews')
+        .and.returnValue(deferred.promise);
+
         $controller('newsController', {
             $scope: scope
         });
-        $q = _$q_
+        
     }));
 
-   
+  
     describe('fetching news', function() {
-        var deferred;
-
-        beforeEach(function() {
-            deferred = $q.defer();
-            spyOn(newsService, 'getNews')
-            .and.returnValue(deferred.promise);
-        });
 
         function sendDataFromService(){
             deferred.resolve([{name: 'sky news'}]);
         };
+
+        describe('Scope', function(){
+            it('Should initialize loading to true', function(){
+              expect(scope.loading).toBeTruthy();
+            });
+        });
 
         it('Should populate news from service', function() {
 
@@ -63,15 +68,22 @@ describe('News controller', function() {
 
             expect(scope.loading).toBeFalsy();
         });
-        it("Should set loading to false when serice fails", function() {
+        it("Should set loading to false when service fails", function() {
             scope.getNews();
             scope.loading = true;
-
 
             deferred.reject();
             $rootScope.$digest();
 
             expect(scope.loading).toBeFalsy()
         })
+    });
+
+      describe('Controller Scope', function(){
+        describe('When loading controller', function() {
+            it('should fetch all news', function(){
+              expect(newsService.getNews).toHaveBeenCalled();
+            });
+        });
     });
 });
